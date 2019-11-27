@@ -4,13 +4,13 @@ namespace Jmhc\Mongodb\Query;
 
 use Closure;
 use DateTime;
+use Hyperf\Database\ConnectionInterface;
 use Hyperf\Database\Query\Builder as BaseBuilder;
 use Hyperf\Database\Query\Expression;
 use Hyperf\Task\Annotation\Task;
 use Hyperf\Utils\Arr;
 use Hyperf\Utils\Collection;
 use Hyperf\Utils\Str;
-use Jmhc\Mongodb\Connection;
 use MongoCollection;
 use MongoDB\BSON\Binary;
 use MongoDB\BSON\ObjectID;
@@ -125,7 +125,7 @@ class Builder extends BaseBuilder
     /**
      * @inheritdoc
      */
-    public function __construct(Connection $connection, Processor $processor)
+    public function __construct(ConnectionInterface $connection, Processor $processor)
     {
         $this->grammar = new Grammar;
         $this->connection = $connection;
