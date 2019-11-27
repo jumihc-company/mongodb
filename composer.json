@@ -2,8 +2,9 @@
     "name": "jmhc/mongodb",
     "description": "Hyperf mongodb.",
     "keywords": [
-        "mongodb",
-        "hyperf"
+        "jmhc",
+        "hyperf",
+        "mongodb"
     ],
     "homepage": "http://jumihc.com/",
     "license": "MIT",
@@ -16,10 +17,7 @@
     "autoload": {
         "psr-4": {
             "Jmhc\\Mongodb\\": "src/"
-        },
-        "files": [
-            "src/helpers.php"
-        ]
+        }
     },
     "require": {
         "php": ">=7.2",
