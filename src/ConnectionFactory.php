@@ -3,6 +3,7 @@
 namespace Jmhc\Mongodb;
 
 use Hyperf\Database\Connectors\MySqlConnector;
+use Hyperf\Database\MySqlConnection;
 use InvalidArgumentException;
 
 class ConnectionFactory extends \Hyperf\Database\Connectors\ConnectionFactory
@@ -19,7 +20,7 @@ class ConnectionFactory extends \Hyperf\Database\Connectors\ConnectionFactory
 
         switch ($config['driver']) {
             case 'mysql':
-                return new MySqlConnector();
+                return new MySqlConnection($connection, $database, $prefix, $config);
             case 'mongodb':
                 return new Connection($config);
         }

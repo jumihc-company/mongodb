@@ -12,7 +12,7 @@ class ConfigProvider
     {
         return [
             'dependencies' => [
-                ConnectionFactory::class => ConnectionFactory::class,
+                \Hyperf\Database\Connectors\ConnectionFactory::class => ConnectionFactory::class,
             ],
             'annotations' => [
                 'scan' => [
