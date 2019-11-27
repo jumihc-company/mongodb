@@ -200,7 +200,7 @@ class Builder extends EloquentBuilder
     }
 
     /**
-     * @return \Illuminate\Database\ConnectionInterface
+     * @return \Hyperf\Database\ConnectionInterface
      */
     public function getConnection()
     {

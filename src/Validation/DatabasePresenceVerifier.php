@@ -14,7 +14,7 @@ class DatabasePresenceVerifier extends \Hyperf\Validation\DatabasePresenceVerifi
      * @param array $extra
      * @return int
      */
-    public function getCount($collection, $column, $value, $excludeId = null, $idColumn = null, array $extra = [])
+    public function getCount($collection, $column, $value, $excludeId = null, $idColumn = null, array $extra = []): int
     {
         $query = $this->table($collection)->where($column, 'regex', "/$value/i");
 
@@ -37,7 +37,7 @@ class DatabasePresenceVerifier extends \Hyperf\Validation\DatabasePresenceVerifi
      * @param array $extra
      * @return int
      */
-    public function getMultiCount($collection, $column, array $values, array $extra = [])
+    public function getMultiCount($collection, $column, array $values, array $extra = []): int
     {
         // Generates a regex like '/(a|b|c)/i' which can query multiple values
         $regex = '/(' . implode('|', $values) . ')/i';

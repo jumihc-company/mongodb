@@ -4,14 +4,18 @@ namespace Jmhc\Mongodb\Eloquent;
 
 use Carbon\Carbon;
 use DateTime;
+use Hyperf\Database\ConnectionInterface;
 use Hyperf\Database\Model\Model as BaseModel;
 use Hyperf\Database\Model\Relations\Relation;
+use Hyperf\Utils\ApplicationContext;
 use Hyperf\Utils\Arr;
 use Hyperf\Utils\Str;
+use Jmhc\Mongodb\ConnectionResolver;
 use Jmhc\Mongodb\Query\Builder as QueryBuilder;
 use MongoDB\BSON\Binary;
 use MongoDB\BSON\ObjectID;
 use MongoDB\BSON\UTCDateTime;
+use Psr\Container\ContainerInterface;
 
 abstract class Model extends BaseModel
 {
@@ -379,7 +383,7 @@ abstract class Model extends BaseModel
 
     /**
      * Set the parent relation.
-     * @param \Illuminate\Database\Eloquent\Relations\Relation $relation
+     * @param \Hyperf\Database\Model\Relations\Relation $relation
      */
     public function setParentRelation(Relation $relation)
     {
@@ -388,7 +392,7 @@ abstract class Model extends BaseModel
 
     /**
      * Get the parent relation.
-     * @return \Illuminate\Database\Eloquent\Relations\Relation
+     * @return \Hyperf\Database\Model\Relations\Relation
      */
     public function getParentRelation()
     {
@@ -419,6 +423,18 @@ abstract class Model extends BaseModel
     protected function removeTableFromKey($key)
     {
         return $key;
+    }
+
+    public function getConnection(): ConnectionInterface
+    {
+        $connectionName = $this->getConnectionName();
+        $resolver = $this->getContainer()->get(ConnectionResolver::class);
+        return $resolver->connection($connectionName);
+    }
+
+    protected function getContainer(): ContainerInterface
+    {
+        return ApplicationContext::getContainer();
     }
 
     /**

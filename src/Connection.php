@@ -3,6 +3,7 @@
 namespace Jmhc\Mongodb;
 
 use Hyperf\Database\Connection as BaseConnection;
+use Hyperf\Database\Query\Builder;
 use Hyperf\Utils\Arr;
 use MongoDB\Client;
 
@@ -65,7 +66,7 @@ class Connection extends BaseConnection
      * @param string|null $as
      * @return Query\Builder
      */
-    public function table($table, $as = null)
+    public function table($table): Builder
     {
         return $this->collection($table);
     }

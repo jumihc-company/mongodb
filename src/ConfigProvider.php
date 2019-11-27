@@ -1,8 +1,4 @@
 <?php
-/**
- * User: YL
- * Date: 2019/11/12
- */
 
 namespace Jmhc\Mongodb;
 
@@ -15,6 +11,9 @@ class ConfigProvider
     public function __invoke(): array
     {
         return [
+            'dependencies' => [
+                ConnectionFactory::class => ConnectionFactory::class,
+            ],
             'annotations' => [
                 'scan' => [
                     'paths' => [

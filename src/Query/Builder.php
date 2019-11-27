@@ -205,7 +205,7 @@ class Builder extends BaseBuilder
     /**
      * @inheritdoc
      */
-    public function get($columns = [])
+    public function get($columns = []): Collection
     {
         return $this->getFresh($columns);
     }
