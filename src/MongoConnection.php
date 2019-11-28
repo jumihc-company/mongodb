@@ -25,7 +25,7 @@ class MongoConnection extends BaseConnection
      */
     public function getCollection($name)
     {
-        return new Collection($this, $this->getPdo()->selectCollection($name));
+        return new Collection($this, $this->getPdo()->selectCollection($this->getDatabaseName(), $name));
     }
 
     /**

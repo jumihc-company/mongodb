@@ -5,7 +5,6 @@ namespace Jmhc\Mongodb\Eloquent;
 use Hyperf\Database\Model\Relations\MorphMany;
 use Hyperf\Database\Model\Relations\MorphOne;
 use Hyperf\Utils\Str;
-use Jmhc\Mongodb\Helpers\EloquentBuilder;
 use Jmhc\Mongodb\Relations\BelongsTo;
 use Jmhc\Mongodb\Relations\BelongsToMany;
 use Jmhc\Mongodb\Relations\HasMany;
@@ -284,17 +283,5 @@ trait HybridRelations
         }
 
         return parent::guessBelongsToManyRelation();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function newEloquentBuilder($query)
-    {
-        if (is_subclass_of($this, \Jmhc\Mongodb\Eloquent\Model::class)) {
-            return new Builder($query);
-        }
-
-        return new EloquentBuilder($query);
     }
 }

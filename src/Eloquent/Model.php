@@ -79,24 +79,6 @@ abstract class Model extends BaseModel
     /**
      * @inheritdoc
      */
-    public function fromDateTime($value)
-    {
-        // If the value is already a UTCDateTime instance, we don't need to parse it.
-        if ($value instanceof UTCDateTime) {
-            return $value;
-        }
-
-        // Let Eloquent convert the value to a DateTime instance.
-        if (!$value instanceof DateTime) {
-            $value = parent::asDateTime($value);
-        }
-
-        return new UTCDateTime($value->getTimestamp() * 1000);
-    }
-
-    /**
-     * @inheritdoc
-     */
     protected function asDateTime($value)
     {
         // Convert UTCDateTime instances.
@@ -402,7 +384,7 @@ abstract class Model extends BaseModel
     /**
      * @inheritdoc
      */
-    public function newEloquentBuilder($query)
+    public function newModelBuilder($query)
     {
         return new Builder($query);
     }
