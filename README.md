@@ -38,3 +38,16 @@ composer require jmhc/mongodb
         ],
     ],
 ```
+
+## 使用
+
+> 需要配置数据库链接 `driver` 为 `mongodb`
+> 
+> 默认使用 `mongodb` 链接
+
+```php
+use Jmhc\Mongodb\Eloquent\Model;
+
+class Message extends Model
+{}
+```

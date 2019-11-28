@@ -3,7 +3,6 @@
 namespace Jmhc\Mongodb\Eloquent;
 
 use Carbon\Carbon;
-use DateTime;
 use Hyperf\Database\ConnectionInterface;
 use Hyperf\Database\Model\Model as BaseModel;
 use Hyperf\Database\Model\Relations\Relation;
@@ -20,6 +19,13 @@ use Psr\Container\ContainerInterface;
 abstract class Model extends BaseModel
 {
     use HybridRelations, EmbedsRelations;
+
+    /**
+     * The connection name for the model.
+     *
+     * @var string
+     */
+    protected $connection = 'mongodb';
 
     /**
      * The collection associated with the model.

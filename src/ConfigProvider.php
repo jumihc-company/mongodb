@@ -3,7 +3,8 @@
 namespace Jmhc\Mongodb;
 
 use Hyperf\Database\Connectors\ConnectionFactory;
-use Jmhc\Mongodb\Pool\MongoDbPoolFactory;
+use Hyperf\DbConnection\Pool\PoolFactory as BasePoolFactory;
+use Jmhc\Mongodb\Pool\PoolFactory;
 
 /**
  * 配置服务
@@ -15,7 +16,7 @@ class ConfigProvider
     {
         return [
             'dependencies' => [
-                MongoDbPoolFactory::class => MongoDbPoolFactory::class,
+                BasePoolFactory::class => PoolFactory::class,
                 ConnectionFactory::class => MongoDbConnectionFactory::class,
                 'db.connector.mongodb' => MongoDbConnector::class,
             ],
