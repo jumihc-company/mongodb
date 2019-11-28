@@ -18,7 +18,7 @@ class ConnectionFactory extends \Hyperf\Database\Connectors\ConnectionFactory
             case 'mysql':
                 return new MySqlConnection($connection, $database, $prefix, $config);
             case 'mongodb':
-                return new \Jmhc\Mongodb\Connection($config);
+                return new MongoConnection($connection, $database, $prefix, $config);
         }
 
         throw new InvalidArgumentException("Unsupported driver [{$driver}]");
