@@ -7,7 +7,6 @@ use DateTime;
 use Hyperf\Database\ConnectionInterface;
 use Hyperf\Database\Query\Builder as BaseBuilder;
 use Hyperf\Database\Query\Expression;
-use Hyperf\Task\Annotation\Task;
 use Hyperf\Utils\Arr;
 use Hyperf\Utils\Collection;
 use Hyperf\Utils\Str;
@@ -211,8 +210,6 @@ class Builder extends BaseBuilder
     }
 
     /**
-     * @Task()
-     *
      * Execute the query as a fresh "select" statement.
      * @param array $columns
      * @return array|static[]|Collection
@@ -410,8 +407,6 @@ class Builder extends BaseBuilder
     }
 
     /**
-     * @Task()
-     *
      * Generate the unique cache key for the current query.
      * @return string
      */
@@ -544,8 +539,6 @@ class Builder extends BaseBuilder
     }
 
     /**
-     * @Task()
-     *
      * @inheritdoc
      */
     public function insert(array $values)
@@ -574,8 +567,6 @@ class Builder extends BaseBuilder
     }
 
     /**
-     * @Task()
-     *
      * @inheritdoc
      */
     public function insertGetId(array $values, $sequence = null)
@@ -670,8 +661,6 @@ class Builder extends BaseBuilder
     }
 
     /**
-     * @Task()
-     *
      * @inheritdoc
      */
     public function delete($id = null)
@@ -705,8 +694,6 @@ class Builder extends BaseBuilder
     }
 
     /**
-     * @Task()
-     *
      * @inheritdoc
      */
     public function truncate()
@@ -729,8 +716,6 @@ class Builder extends BaseBuilder
     }
 
     /**
-     * @Task()
-     *
      * @inheritdoc
      */
     public function raw($expression = null)
@@ -829,8 +814,6 @@ class Builder extends BaseBuilder
     }
 
     /**
-     * @Task()
-     *
      * Perform an update query.
      * @param array $query
      * @param array $options
