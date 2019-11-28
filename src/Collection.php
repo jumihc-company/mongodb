@@ -10,7 +10,7 @@ class Collection
 {
     /**
      * The connection instance.
-     * @var Connection
+     * @var MongoConnection
      */
     protected $connection;
 
@@ -21,10 +21,10 @@ class Collection
     protected $collection;
 
     /**
-     * @param Connection $connection
+     * @param MongoConnection $connection
      * @param MongoCollection $collection
      */
-    public function __construct(Connection $connection, MongoCollection $collection)
+    public function __construct(MongoConnection $connection, MongoCollection $collection)
     {
         $this->connection = $connection;
         $this->collection = $collection;

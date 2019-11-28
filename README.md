@@ -28,7 +28,7 @@ composer require jmhc/mongodb=dev-master
         'options'  => [
             'database' => env('MONGODB_AUTH_DATABASE', 'admin'),
         ],
-        'prefix' => env('DB_PREFIX', ''),
+        'prefix' => env('MONGODB_PREFIX', ''),
         'pool' => [
             'min_connections' => 1,
             'max_connections' => 10,

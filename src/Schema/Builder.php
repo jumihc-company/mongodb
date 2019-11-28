@@ -3,14 +3,14 @@
 namespace Jmhc\Mongodb\Schema;
 
 use Closure;
-use Jmhc\Mongodb\Connection;
+use Jmhc\Mongodb\MongoConnection;
 
 class Builder extends \Hyperf\Database\Schema\Builder
 {
     /**
      * @inheritdoc
      */
-    public function __construct(Connection $connection)
+    public function __construct(MongoConnection $connection)
     {
         $this->connection = $connection;
     }

@@ -8,7 +8,7 @@ class Blueprint extends \Hyperf\Database\Schema\Blueprint
 {
     /**
      * The MongoConnection object for this blueprint.
-     * @var \Jmhc\Mongodb\Connection
+     * @var \Jmhc\Mongodb\MongoConnection
      */
     protected $connection;
 

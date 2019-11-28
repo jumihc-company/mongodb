@@ -15,7 +15,25 @@ class MongoConnection extends BaseConnection
      */
     public function disconnect()
     {
-        unset($this->connection);
+        unset($this->pdo);
+    }
+
+    /**
+     * Get a MongoDB collection.
+     * @param string $name
+     * @return Collection
+     */
+    public function getCollection($name)
+    {
+        return new Collection($this, $this->getPdo()->selectCollection($name));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getElapsedTime($start)
+    {
+        return parent::getElapsedTime($start);
     }
 
     /**

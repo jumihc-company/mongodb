@@ -129,6 +129,8 @@ class MongoPoolConnection extends BaseConnection implements ConnectionInterface,
         $refresh = $this->factory->make($this->config);
         if ($refresh instanceof \Hyperf\Database\Connection) {
             $connection->disconnect();
+            $connection->setPdo($refresh->getPdo());
+            $connection->setReadPdo($refresh->getReadPdo());
         }
 
         $this->logger->warning('Database connection refreshed.');
