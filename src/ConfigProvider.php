@@ -18,13 +18,6 @@ class ConfigProvider
                 \Hyperf\Database\Connectors\ConnectionFactory::class => ConnectionFactory::class,
                 'db.connector.mongodb' => MongoConnector::class,
             ],
-            'annotations' => [
-                'scan' => [
-                    'paths' => [
-                        __DIR__,
-                    ],
-                ],
-            ],
         ];
     }
 }
