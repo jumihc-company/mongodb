@@ -3,12 +3,13 @@
 namespace Jmhc\Mongodb;
 
 use Hyperf\Database\Connection as BaseConnection;
+use Hyperf\Database\Grammar;
 use Jmhc\Mongodb\Query\Grammar as QueryGrammar;
 use Jmhc\Mongodb\Query\Processor;
 use Jmhc\Mongodb\Schema\Builder;
 use Jmhc\Mongodb\Schema\Grammar as SchemaGrammar;
 
-class MongoConnection extends BaseConnection
+class MongoDbConnection extends BaseConnection
 {
     /**
      * @inheritdoc
@@ -51,7 +52,7 @@ class MongoConnection extends BaseConnection
     /**
      * Get the default query grammar instance.
      *
-     * @return \Hyperf\Database\Grammar
+     * @return Grammar
      */
     protected function getDefaultQueryGrammar()
     {
@@ -61,7 +62,7 @@ class MongoConnection extends BaseConnection
     /**
      * Get the default schema grammar instance.
      *
-     * @return \Hyperf\Database\Grammar
+     * @return Grammar
      */
     protected function getDefaultSchemaGrammar()
     {

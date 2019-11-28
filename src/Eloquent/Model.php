@@ -10,7 +10,7 @@ use Hyperf\Database\Model\Relations\Relation;
 use Hyperf\Utils\ApplicationContext;
 use Hyperf\Utils\Arr;
 use Hyperf\Utils\Str;
-use Jmhc\Mongodb\ConnectionResolver;
+use Jmhc\Mongodb\MongoDbConnectionResolver;
 use Jmhc\Mongodb\Query\Builder as QueryBuilder;
 use MongoDB\BSON\Binary;
 use MongoDB\BSON\ObjectID;
@@ -410,7 +410,7 @@ abstract class Model extends BaseModel
     public function getConnection(): ConnectionInterface
     {
         $connectionName = $this->getConnectionName();
-        $resolver = $this->getContainer()->get(ConnectionResolver::class);
+        $resolver = $this->getContainer()->get(MongoDbConnectionResolver::class);
         return $resolver->connection($connectionName);
     }
 

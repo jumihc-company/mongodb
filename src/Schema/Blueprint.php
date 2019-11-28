@@ -7,8 +7,8 @@ use Hyperf\Database\Connection;
 class Blueprint extends \Hyperf\Database\Schema\Blueprint
 {
     /**
-     * The MongoConnection object for this blueprint.
-     * @var \Jmhc\Mongodb\MongoConnection
+     * The MongoDbConnection object for this blueprint.
+     * @var \Jmhc\Mongodb\MongoDbConnection
      */
     protected $connection;
 

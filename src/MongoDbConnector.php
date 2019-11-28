@@ -6,7 +6,7 @@ use Hyperf\Database\Connectors\ConnectorInterface;
 use Hyperf\Utils\Arr;
 use MongoDB\Client;
 
-class MongoConnector implements ConnectorInterface
+class MongoDbConnector implements ConnectorInterface
 {
     /**
      * Establish a database connection.

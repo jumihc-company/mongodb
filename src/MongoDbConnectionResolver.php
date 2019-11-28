@@ -2,11 +2,12 @@
 
 namespace Jmhc\Mongodb;
 
+use Hyperf\DbConnection\ConnectionResolver;
 use Hyperf\DbConnection\Pool\PoolFactory;
 use Jmhc\Mongodb\Pool\MongoDbPoolFactory;
 use Psr\Container\ContainerInterface;
 
-class ConnectionResolver extends \Hyperf\DbConnection\ConnectionResolver
+class MongoDbConnectionResolver extends ConnectionResolver
 {
     /**
      * The default connection name.
@@ -15,6 +16,9 @@ class ConnectionResolver extends \Hyperf\DbConnection\ConnectionResolver
      */
     protected $default = 'mongodb';
 
+    /**
+     * @inheritdoc
+     */
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;

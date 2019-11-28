@@ -1,18 +1,20 @@
 <?php
 
-namespace Jmhc\Mongodb;
+namespace Jmhc\Mongodb\Pool;
 
 use Hyperf\Contract\ConnectionInterface;
 use Hyperf\Contract\StdoutLoggerInterface;
+use Hyperf\Database\Connection;
 use Hyperf\Database\ConnectionInterface as DbConnectionInterface;
 use Hyperf\DbConnection\Pool\DbPool;
 use Hyperf\DbConnection\Traits\DbConnection;
 use Hyperf\Pool\Connection as BaseConnection;
 use Hyperf\Pool\Exception\ConnectionException;
+use Jmhc\Mongodb\MongoDbConnectionFactory;
 use Psr\Container\ContainerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 
-class MongoPoolConnection extends BaseConnection implements ConnectionInterface, DbConnectionInterface
+class MongoDbPoolConnection extends BaseConnection implements ConnectionInterface, DbConnectionInterface
 {
     use DbConnection;
 
@@ -27,7 +29,7 @@ class MongoPoolConnection extends BaseConnection implements ConnectionInterface,
     protected $connection;
 
     /**
-     * @var ConnectionFactory
+     * @var MongoDbConnectionFactory
      */
     protected $factory;
 
@@ -43,10 +45,13 @@ class MongoPoolConnection extends BaseConnection implements ConnectionInterface,
 
     protected $transaction = false;
 
+    /**
+     * @inheritdoc
+     */
     public function __construct(ContainerInterface $container, DbPool $pool, array $config)
     {
         parent::__construct($container, $pool);
-        $this->factory = $container->get(ConnectionFactory::class);
+        $this->factory = $container->get(MongoDbConnectionFactory::class);
         $this->config = $config;
         $this->logger = $container->get(StdoutLoggerInterface::class);
 
@@ -58,6 +63,9 @@ class MongoPoolConnection extends BaseConnection implements ConnectionInterface,
         return $this->connection->{$name}(...$arguments);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getActiveConnection(): DbConnectionInterface
     {
         if ($this->check()) {
@@ -71,11 +79,14 @@ class MongoPoolConnection extends BaseConnection implements ConnectionInterface,
         return $this;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function reconnect(): bool
     {
         $this->connection = $this->factory->make($this->config);
 
-        if ($this->connection instanceof \Hyperf\Database\Connection) {
+        if ($this->connection instanceof Connection) {
             // Reset event dispatcher after db reconnect.
             if ($this->container->has(EventDispatcherInterface::class)) {
                 $dispatcher = $this->container->get(EventDispatcherInterface::class);
@@ -85,7 +96,7 @@ class MongoPoolConnection extends BaseConnection implements ConnectionInterface,
             // Reset reconnector after db reconnect.
             $this->connection->setReconnector(function ($connection) {
                 $this->logger->warning('Database connection refreshing.');
-                if ($connection instanceof \Hyperf\Database\Connection) {
+                if ($connection instanceof Connection) {
                     $this->refresh($connection);
                 }
             });
@@ -95,6 +106,9 @@ class MongoPoolConnection extends BaseConnection implements ConnectionInterface,
         return true;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function close(): bool
     {
         unset($this->connection);
@@ -102,6 +116,9 @@ class MongoPoolConnection extends BaseConnection implements ConnectionInterface,
         return true;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function release(): void
     {
         if ($this->isTransaction()) {
@@ -123,11 +140,12 @@ class MongoPoolConnection extends BaseConnection implements ConnectionInterface,
 
     /**
      * Refresh pdo and readPdo for current connection.
+     * @param Connection $connection
      */
-    protected function refresh(\Hyperf\Database\Connection $connection)
+    protected function refresh(Connection $connection)
     {
         $refresh = $this->factory->make($this->config);
-        if ($refresh instanceof \Hyperf\Database\Connection) {
+        if ($refresh instanceof Connection) {
             $connection->disconnect();
             $connection->setPdo($refresh->getPdo());
             $connection->setReadPdo($refresh->getReadPdo());

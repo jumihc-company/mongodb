@@ -6,7 +6,7 @@
 
 使用以下命令安装：
 ```
-composer require jmhc/mongodb=dev-master
+composer require jmhc/mongodb
 ```
 
 ## 配置
@@ -28,7 +28,6 @@ composer require jmhc/mongodb=dev-master
         'options'  => [
             'database' => env('MONGODB_AUTH_DATABASE', 'admin'),
         ],
-        'prefix' => env('MONGODB_PREFIX', ''),
         'pool' => [
             'min_connections' => 1,
             'max_connections' => 10,

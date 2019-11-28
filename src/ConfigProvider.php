@@ -2,6 +2,7 @@
 
 namespace Jmhc\Mongodb;
 
+use Hyperf\Database\Connectors\ConnectionFactory;
 use Jmhc\Mongodb\Pool\MongoDbPoolFactory;
 
 /**
@@ -15,8 +16,8 @@ class ConfigProvider
         return [
             'dependencies' => [
                 MongoDbPoolFactory::class => MongoDbPoolFactory::class,
-                \Hyperf\Database\Connectors\ConnectionFactory::class => ConnectionFactory::class,
-                'db.connector.mongodb' => MongoConnector::class,
+                ConnectionFactory::class => MongoDbConnectionFactory::class,
+                'db.connector.mongodb' => MongoDbConnector::class,
             ],
         ];
     }

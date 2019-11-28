@@ -3,12 +3,16 @@
 namespace Jmhc\Mongodb;
 
 use Hyperf\Database\Connection;
+use Hyperf\Database\Connectors\ConnectionFactory;
 use Hyperf\Database\Connectors\MySqlConnector;
 use Hyperf\Database\MySqlConnection;
 use InvalidArgumentException;
 
-class ConnectionFactory extends \Hyperf\Database\Connectors\ConnectionFactory
+class MongoDbConnectionFactory extends ConnectionFactory
 {
+    /**
+     * @inheritdoc
+     */
     public function createConnector(array $config)
     {
         if (! isset($config['driver'])) {
@@ -23,12 +27,15 @@ class ConnectionFactory extends \Hyperf\Database\Connectors\ConnectionFactory
             case 'mysql':
                 return new MySqlConnector();
             case 'mongodb':
-                return new MongoConnector();
+                return new MongoDbConnector();
         }
 
         throw new InvalidArgumentException("Unsupported driver [{$config['driver']}]");
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function createConnection($driver, $connection, $database, $prefix = '', array $config = [])
     {
         if ($resolver = Connection::getResolver($driver)) {
@@ -39,7 +46,7 @@ class ConnectionFactory extends \Hyperf\Database\Connectors\ConnectionFactory
             case 'mysql':
                 return new MySqlConnection($connection, $database, $prefix, $config);
             case 'mongodb':
-                return new MongoConnection($connection, $database, $prefix, $config);
+                return new MongoDbConnection($connection, $database, $prefix, $config);
         }
 
         throw new InvalidArgumentException("Unsupported driver [{$driver}]");

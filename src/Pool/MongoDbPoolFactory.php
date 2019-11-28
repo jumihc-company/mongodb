@@ -8,6 +8,9 @@ use Hyperf\Di\Container;
 
 class MongoDbPoolFactory extends PoolFactory
 {
+    /**
+     * @inheritdoc
+     */
     public function getPool(string $name): DbPool
     {
         if (isset($this->pools[$name])) {
