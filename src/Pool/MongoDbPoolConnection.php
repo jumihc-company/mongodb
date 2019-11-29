@@ -73,7 +73,7 @@ class MongoDbPoolConnection extends BaseConnection implements ConnectionInterfac
         }
 
         if (! $this->reconnect()) {
-            throw new ConnectionException('Connection reconnect failed.');
+            throw new ConnectionException('MongoDb connection reconnect failed.');
         }
 
         return $this;
@@ -95,7 +95,7 @@ class MongoDbPoolConnection extends BaseConnection implements ConnectionInterfac
 
             // Reset reconnector after db reconnect.
             $this->connection->setReconnector(function ($connection) {
-                $this->logger->warning('Database connection refreshing.');
+                $this->logger->warning('MongoDb database connection refreshing.');
                 if ($connection instanceof Connection) {
                     $this->refresh($connection);
                 }
@@ -123,7 +123,7 @@ class MongoDbPoolConnection extends BaseConnection implements ConnectionInterfac
     {
         if ($this->isTransaction()) {
             $this->rollBack(0);
-            $this->logger->error('Maybe you\'ve forgotten to commit or rollback the MySQL transaction.');
+            $this->logger->error('Maybe you\'ve forgotten to commit or rollback the MongoDb transaction.');
         }
         parent::release();
     }
@@ -151,6 +151,6 @@ class MongoDbPoolConnection extends BaseConnection implements ConnectionInterfac
             $connection->setReadPdo($refresh->getReadPdo());
         }
 
-        $this->logger->warning('Database connection refreshed.');
+        $this->logger->warning('MongoDb database connection refreshed.');
     }
 }
